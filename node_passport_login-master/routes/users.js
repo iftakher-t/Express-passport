@@ -40,8 +40,10 @@ router.post('/register', (req, res) => {
       password2
     });
   } else {
+    //Validation password
     User.findOne({ email: email }).then(user => {
       if (user) {
+        //user exist
         errors.push({ msg: 'Email already exists' });
         res.render('register', {
           errors,
