@@ -60,18 +60,16 @@ router.post('/register', (req, res) => {
         });
         
 // hash password
-        
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newUser.password, salt, (err, hash) => {
             if (err) throw err;
+            
+            //set pass to hashed
             newUser.password = hash;
-            newUser
-              .save()
+            //save User
+            newUser.save()
               .then(user => {
-                req.flash(
-                  'success_msg',
-                  'You are now registered and can log in'
-                );
+                req.flash( 'success_msg', 'You are now registered and can log in' );
                 res.redirect('/users/login');
               })
               .catch(err => console.log(err));
@@ -82,7 +80,7 @@ router.post('/register', (req, res) => {
   }
 });
 
-// Login
+// Login handle
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', {
     successRedirect: '/dashboard',
