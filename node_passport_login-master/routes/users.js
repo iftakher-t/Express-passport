@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
+
 // Load User model
 const User = require('../models/User');
 const { forwardAuthenticated } = require('../config/auth');
@@ -17,6 +18,7 @@ router.post('/register', (req, res) => {
   const { name, email, password, password2 } = req.body;
   let errors = [];
 
+  //check required fields
   if (!name || !email || !password || !password2) {
     errors.push({ msg: 'Please enter all fields' });
   }
